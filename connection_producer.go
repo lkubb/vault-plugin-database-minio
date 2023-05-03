@@ -200,7 +200,7 @@ func checkAuthorizations(ctx context.Context, client *api.AdminClient) error {
 	if err != nil {
 		return fmt.Errorf("Failed parsing policy: %w", err)
 	}
-	auths := []iampolicy.Action{iampolicy.CreateUserAdminAction, iampolicy.DeleteUserAdminAction, iampolicy.ListUsersAdminAction, iampolicy.EnableUserAdminAction, iampolicy.DisableUserAdminAction, iampolicy.GetUserAdminAction, iampolicy.AddUserToGroupAdminAction, iampolicy.RemoveUserFromGroupAdminAction, iampolicy.GetGroupAdminAction, iampolicy.ListGroupsAdminAction, iampolicy.EnableGroupAdminAction, iampolicy.DisableGroupAdminAction, iampolicy.CreatePolicyAdminAction, iampolicy.DeletePolicyAdminAction, iampolicy.GetPolicyAdminAction, iampolicy.AttachPolicyAdminAction, iampolicy.UpdatePolicyAssociationAction, iampolicy.ListUserPoliciesAdminAction}
+	auths := []iampolicy.Action{iampolicy.CreateUserAdminAction, iampolicy.DeleteUserAdminAction, iampolicy.ListUsersAdminAction, iampolicy.EnableUserAdminAction, iampolicy.DisableUserAdminAction, iampolicy.GetUserAdminAction, iampolicy.AddUserToGroupAdminAction, iampolicy.RemoveUserFromGroupAdminAction, iampolicy.GetGroupAdminAction, iampolicy.ListGroupsAdminAction, iampolicy.EnableGroupAdminAction, iampolicy.DisableGroupAdminAction, iampolicy.CreatePolicyAdminAction, iampolicy.DeletePolicyAdminAction, iampolicy.GetPolicyAdminAction, iampolicy.AttachPolicyAdminAction, iampolicy.ListUserPoliciesAdminAction}
 	for _, auth := range auths {
 		if !policy.IsAllowed(iampolicy.Args{Action: auth}) {
 			return fmt.Errorf("Missing authorization: %s", auth)
