@@ -1,0 +1,42 @@
+---
+kind: pipeline
+type: docker
+name: build_publish
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: build
+    image: golang
+    environment:
+      CGO_ENABLED: 0
+    commands:
+      - GOOS=linux GOARCH=amd64 go build -o dist/minio-database-plugin_${DRONE_TAG}_linux_amd64 ./cmd/minio-database-plugin/
+      - cd ./dist; find * -type f -name 'minio-database-plugin*' -exec shasum -a 256 {} \; > SHA256
+
+  - name: publish-artifacts
+    image: plugins/gitea-release
+    settings:
+      api_key:
+        from_secret: gitea_api_key
+      base_url:
+        from_secret: gitea_api_url
+      files: dist/*
+
+trigger:
+  event:
+    - tag
+---
+kind: secret
+name: gitea_api_key
+get:
+  path: secrets/drone/gitea_api
+  name: key
+---
+kind: secret
+name: gitea_api_url
+get:
+  path: secrets/drone/gitea_api
+  name: url
