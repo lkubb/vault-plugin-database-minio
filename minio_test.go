@@ -11,10 +11,10 @@ import (
 	"time"
 
 	backoff "github.com/cenkalti/backoff/v3"
-	"github.com/hashicorp/vault/helper/testhelpers/docker"
+	"github.com/hashicorp/vault/sdk/helper/docker"
 	dbplugin "github.com/hashicorp/vault/sdk/database/dbplugin/v5"
 	dbtesting "github.com/hashicorp/vault/sdk/database/dbplugin/v5/testing"
-	api "github.com/minio/madmin-go/v2"
+	api "github.com/minio/madmin-go/v3"
 	"github.com/stretchr/testify/require"
 )
 
